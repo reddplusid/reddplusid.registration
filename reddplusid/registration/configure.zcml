@@ -16,6 +16,31 @@
     <include package=".behavior"/>
     <include package=".portlet"/>
 
+    <browser:page
+        for="Products.CMFPlone.Portal.PloneSite"
+        name="personal-information"
+        class=".userdataschema.CustomizedUserDataPanel"
+        permission="cmf.SetOwnProperties"
+        layer=".interfaces.IProductSpecific"
+        />
+
+    <browser:page
+      for="Products.CMFPlone.Portal.PloneSite"
+      name="user-information"
+      class=".userdataschema.CustomizedUserDataConfiglet"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      layer=".interfaces.IProductSpecific"
+      />
+
+    <browser:page
+      name="register"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      class=".userdataschema.CustomizedRegistrationForm"
+      permission="cmf.AddPortalMember"
+      layer=".interfaces.IProductSpecific"
+      />
+
+
     <!-- -*- extra stuff goes here -*- -->
 
 </configure>

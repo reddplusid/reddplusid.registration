@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<componentregistry>
+    <adapters>
+        <adapter
+            provides="reddplusid.registration.userdataschema.IEnhancedUserDataSchema"
+            for="Products.CMFCore.interfaces.ISiteRoot"
+            factory="reddplusid.registration.userdataschema.EnhancedUserDataPanelAdapter"
+            />
+    </adapters>
+    <utilities>
+        <utility
+            interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
+            factory="reddplusid.registration.userdataschema.UserDataSchemaProvider"/>
+    </utilities>
+</componentregistry>
