@@ -7,7 +7,13 @@ from plone.app.users.browser.register import RegistrationForm
 from zope import schema
 from zope.component import getUtility
 from zope.formlib.widget import BrowserWidget
+from zope.formlib.widgets import MultiSelectWidget as BaseMultiSelectWidget
 from Products.CMFCore.utils import getToolByName
+
+class MultiSelectWidget(BaseMultiSelectWidget):
+    def __init__(self, field, request):
+        super(MultiSelectWidget, self).__init__(field, field.value_type.vocabulary,
+                request)
 
 class DisplayWidget(BrowserWidget):
 
@@ -189,6 +195,8 @@ class CustomizedUserDataPanel(UserDataPanel):
                 'description', 'portrait', 'pdelete', 
                 'conduct_text', 'conduct')
         self.form_fields['conduct_text'].custom_widget = DisplayWidget
+        self.form_fields['expertise'].custom_widget = MultiSelectWidget
+
 
     def _on_save(self, data=None):
         mt = getToolByName(self.context, 'portal_membership')
@@ -210,7 +218,7 @@ class CustomizedUserDataConfiglet(UserDataConfiglet):
                 'description', 'portrait', 'pdelete',
                 'conduct_text', 'conduct')
         self.form_fields['conduct_text'].custom_widget = DisplayWidget
-
+        self.form_fields['expertise'].custom_widget = MultiSelectWidget
 
 #    def _on_save(self, data=None):
 #        mt = getToolByName(self.context, 'portal_membership')
@@ -224,4 +232,5 @@ class CustomizedRegistrationForm(RegistrationForm):
     def form_fields(self):
         fields = super(CustomizedRegistrationForm, self).form_fields
         fields['conduct_text'].custom_widget = DisplayWidget
+        fields['expertise'].custom_widget = MultiSelectWidget
         return fields
